@@ -2,7 +2,7 @@ using ProyRepositorio.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using ProyRepositorio.Repositorios;
-
+using System.Linq;
 
 namespace ProyRepositorio.Controllers
 {
@@ -19,8 +19,9 @@ namespace ProyRepositorio.Controllers
         //api/categorias/133/productos
         [HttpGet]
         [Route("{idcategoria}/productos")]
-        public List<Producto> MostrarProductos(int idcategoria){
-            return null;
+        public ActionResult<List<Categoria>> MostrarProductos(int idcategoria){
+            //var resultado = _context.Filtrar(x => x.Id == idcategoria, x => x.Productos, x => x.Vendedor);
+            return _context.Filtrar(x => x.Id == idcategoria).ToList();
         }
 
     }

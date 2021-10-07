@@ -61,6 +61,16 @@ namespace ProyRepositorio.Repositorios
             }
             return query;
         }
+        public IQueryable<T> Filtrar(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
+        {
+            var query = _context.Set<T>().Where(predicate);
+            foreach (Expression<Func<T, object>> i in includes)
+            {
+                query = query.Include(i);
+            }
+            return query;
+        }
+
         //public List<T> BuscarListaPor(Expression<Func<T, bool>> query)
         //{
         //    return _context.Set<T>().Where(query).ToList();
