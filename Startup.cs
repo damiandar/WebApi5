@@ -57,6 +57,23 @@ namespace ProyRepositorio
                 //        .AllowAnyMethod();
                 //    }
                 //) ; 
+                //services.AddCors(c=> {
+                //    c.AddPolicy(name: "PermitirTodos", o => { o.WithOrigins("http://localhost:5000")
+                //        .AllowAnyHeader()
+                //        .WithMethods("GET"); } );
+                //    c.AddPolicy(name: "PermitirSoloServerCentral", o => { o.WithOrigins("http://localhost:5001")
+                //        .AllowAnyHeader()
+                //        .AllowAnyMethod(); });
+                //    c.AddPolicy(name: "PermitirMinisterioEconomia", o => {
+                //        o.WithOrigins("http://localhost:5002")
+                //        .WithHeaders( "Content-Type","Accept")
+                //        .AllowAnyMethod(); });
+                //    c.AddPolicy(name: "PermitirHost", o => {
+                //        o.WithOrigins("http://localhost:5003")
+                //        .WithHeaders("X-Pagination")
+                //        .WithMethods("GET");
+                //    });
+                //});
             });
             
             services.AddScoped<ProductoRepositorio<ComercioDbContext>, ProductoRepositorio<ComercioDbContext>>();
