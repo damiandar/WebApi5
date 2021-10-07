@@ -52,7 +52,15 @@ namespace ProyRepositorio.Repositorios
         {
             return _context.Set<T>().Where(query); 
         }
-
+        public IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes)
+        {
+            var query = _context.Set<T>().AsQueryable();
+            foreach (Expression<Func<T, object>> i in includes)
+            {
+                query = query.Include(i);
+            }
+            return query;
+        }
         //public List<T> BuscarListaPor(Expression<Func<T, bool>> query)
         //{
         //    return _context.Set<T>().Where(query).ToList();

@@ -29,7 +29,8 @@ namespace ProyRepositorio.Controllers
         {
             //meter un where
             //return _context.Productos.Include(x=>x.Categoria).ToList();
-             return _context.FindAll(); 
+            //_context.GetAll(x => x.Categoria, x => x.Vendedor);
+            return _context.GetAll(x=> x.Categoria).ToList(); 
         }
 
         [HttpGet("{orden?}/{nropag?}/{tampag?}", Name = nameof(GetAll) )]
