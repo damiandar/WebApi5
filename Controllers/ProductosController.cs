@@ -33,8 +33,8 @@ namespace ProyRepositorio.Controllers
             return _context.GetAll(x=> x.Categoria).ToList(); 
         }
 
-        [HttpGet("{orden?}/{nropag?}/{tampag?}", Name = nameof(GetAll) )]
-        public ActionResult GetAll(string orden=null, int nropag=0, int tampag=0)
+        [HttpGet("{nropag?}/{tampag?}", Name = nameof(GetAll) )]
+        public ActionResult GetAll(string orden="", int nropag=1, int tampag=10)
         {
             try
             {
