@@ -47,8 +47,8 @@ namespace ProyRepositorio
                 c.AddPolicy(
                     "PermitirOrigin",
                     o => o.AllowAnyOrigin()
-                );
-                //c.AddPolicy( name:
+                ); 
+                //c.AddPolicy(name:
                 //    "PermitirSoloOrigenRegistrado",
                 //    o =>
                 //    {
@@ -56,7 +56,7 @@ namespace ProyRepositorio
                 //        .AllowAnyHeader()
                 //        .AllowAnyMethod();
                 //    }
-                //) ; 
+                //);
                 //services.AddCors(c=> {
                 //    c.AddPolicy(name: "PermitirTodos", o => { o.WithOrigins("http://localhost:5000")
                 //        .AllowAnyHeader()
@@ -111,6 +111,8 @@ namespace ProyRepositorio
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProyRepositorio v1"));
+                //habilito cors para todos
+                app.UseCors("PermitirOrigin");
             }
 
             app.UseRouting();
