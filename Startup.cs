@@ -42,12 +42,13 @@ namespace ProyRepositorio
 
             services.AddDbContext<ComercioDbContext>( 
                 o => o.UseSqlServer(Configuration.GetConnectionString("ComercioConnectionString")));
-            
-            services.AddCors(c => {
+
+            services.AddCors(c =>
+            {
                 c.AddPolicy(
                     "PermitirOrigin",
                     o => o.AllowAnyOrigin()
-                ); 
+                );
                 //c.AddPolicy(name:
                 //    "PermitirSoloOrigenRegistrado",
                 //    o =>
@@ -74,9 +75,9 @@ namespace ProyRepositorio
                 //        .WithMethods("GET");
                 //    });
                 //});
-            });
-            
-            services.AddScoped<ProductoRepositorio<ComercioDbContext>, ProductoRepositorio<ComercioDbContext>>();
+                });
+
+                services.AddScoped<ProductoRepositorio<ComercioDbContext>, ProductoRepositorio<ComercioDbContext>>();
             services.AddScoped<CategoriaRepositorio<ComercioDbContext>, CategoriaRepositorio<ComercioDbContext>>();
     
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -112,11 +113,16 @@ namespace ProyRepositorio
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProyRepositorio v1"));
                 //habilito cors para todos
-                app.UseCors("PermitirOrigin");
+                app.UseCors(x => x
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+
             }
 
+           
             app.UseRouting();
-            
+            //app.UseCors();
             app.UseAuthentication(); 
             app.UseAuthorization();
 

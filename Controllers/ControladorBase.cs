@@ -19,7 +19,7 @@ namespace ProyRepositorio.Controllers
         [HttpGet]
         public virtual ActionResult<List<T>> GetTodos(){
             var resultado = _repo.FindAll();
-
+            //return NotFound();
             return Ok(resultado.ToList());
         }
 
