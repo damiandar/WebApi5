@@ -9,11 +9,11 @@ namespace ProyRepositorio.Repositorios
     public interface IRepository<T>
     {
        T FindById(int id);
-        List<T> FindAll();
+        IQueryable<T> BuscarTodos(params Expression<Func<T, object>>[] includes);
         void Crear(T entidad);
 
         void Actualizar(T entidad);
-        public IQueryable<T> BuscarPor(Expression<Func<T, bool>> query);
+        IQueryable<T> BuscarPor(Expression<Func<T, bool>> predicado, params Expression<Func<T, object>>[] includes);
         void Borrar(int id);
     }
 }

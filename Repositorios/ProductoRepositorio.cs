@@ -16,15 +16,15 @@ namespace ProyRepositorio.Repositorios
 
    
 
-        public override List<Producto> FindAll()
-        {
-            return this.Incluir().ToList();
-        }
+        //public override List<Producto> FindAll()
+        //{
+        //    return this.Incluir().ToList();
+        //}
 
-        private IQueryable<Producto> Incluir()
-        {
-            return _context.Set<Producto>()
-            .Include(p => p.Categoria);
-        }
+        //private IQueryable<Producto> Incluir()
+        //{
+        //    return _context.Set<Producto>()
+        //    .Include(p => p.Categoria);
+        //}
     }
 }

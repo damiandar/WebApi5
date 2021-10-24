@@ -27,50 +27,10 @@ namespace ProyRepositorio.Controllers
         [Route("sinstock")]
         public List<Producto> MostrarRopa()
         {
-            //meter un where
             //return _context.Productos.Include(x=>x.Categoria).ToList();
-            //_context.GetAll(x => x.Categoria, x => x.Vendedor);
-            return _context.GetAll(x=> x.Categoria).ToList(); 
+            //_context.BuscarTodos(x => x.Categoria, x => x.Vendedor);
+            return _context.BuscarTodos(x=> x.Categoria).ToList(); 
         }
-
-        [HttpGet("{nropag?}/{tampag?}", Name = nameof(GetAll) )]
-        public ActionResult GetAll(string orden="", int nropag=1, int tampag=10)
-        {
-            try
-            {
-                var resultado = Ordenador<Producto>.Ordenar(_context.BuscarPor(x => x.Id > 0), orden);
-                var listapag = ListaPaginada<Producto>.Paginar(resultado, nropag, tampag);
-                var metadatos = new
-                {
-                    listapag.TotalPaginas,
-                    listapag.TotalReg,
-                    listapag.PagActual,
-                    listapag.TieneAnt,
-                    listapag.TieneProx,
-                    listapag.TamPag
-                };
-                Response.Headers.Add("X-Pagination", System.Text.Json.JsonSerializer.Serialize(metadatos));
-                // add links on each retrieved user
-                return Ok(listapag);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("error en el servidor: " + ex.Message.ToString());
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                "Error en el servidor, vuelva a intentar en otro momento");
-            }
-        }
-
-        //[HttpGet("{id}")]
-        //public ActionResult<Producto> MostrarPorId(int id)
-        //{
-        //    var prodbuscado = _context.FindById(id);
-        //    if (prodbuscado == null)
-        //    {
-        //        return NotFound("El producto no fue encontrado con ese id: " + id);
-        //    }
-        //    return prodbuscado;
-        //}
 
         /// <summary>
         /// Busqueda por nombre
@@ -82,6 +42,8 @@ namespace ProyRepositorio.Controllers
         //[Consumes("application/json")] //Accept indicates what kind of response from the server the client can accept
         public ActionResult<Producto> MostrarPorNombre(string nombre)
         {
+            //var resultado = Ordenador<Producto>.Ordenar(_context.BuscarPor(x => x.Id > 0), orden);
+            //var listapag = ListaPaginada<Producto>.Paginar(resultado, nropag, tampag);
             var prodbuscado = _context.BuscarPor(x => x.Nombre == nombre);
             if (prodbuscado == null)
             {

@@ -38,21 +38,33 @@ namespace ProyRepositorio.Repositorios
             this._context.SaveChanges();
         }
 
-        public virtual List<T> FindAll()
-        {
-            return this._context.Set<T>().ToList();
-        }
-
+    
         public virtual T FindById(int id)
         {
             return this._context.Set<T>().Find(id);
         }
 
-        public IQueryable<T> BuscarPor(Expression<Func<T, bool>> query)
+        /// <summary>
+        /// Busqueda por una expresion
+        /// </summary>
+        /// <param name="busqueda">predicado= expresion lambda</param>
+        /// <param name="includes">includes separados por coma</param>
+        /// <returns></returns>
+        public IQueryable<T> BuscarPor(Expression<Func<T, bool>> predicado, params Expression<Func<T, object>>[] includes)
         {
-            return _context.Set<T>().Where(query); 
+            var query= _context.Set<T>().Where(predicado);
+            foreach (Expression<Func<T, object>> i in includes)
+            {
+                query = query.Include(i);
+            }
+            return query;
         }
-        public IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes)
+        /// <summary>
+        /// Buscar todos con includes
+        /// </summary>
+        /// <param name="includes">includes separados por coma</param>
+        /// <returns></returns>
+        public IQueryable<T> BuscarTodos(params Expression<Func<T, object>>[] includes)
         {
             var query = _context.Set<T>().AsQueryable();
             foreach (Expression<Func<T, object>> i in includes)
@@ -61,19 +73,6 @@ namespace ProyRepositorio.Repositorios
             }
             return query;
         }
-        public IQueryable<T> Filtrar(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
-        {
-            var query = _context.Set<T>().Where(predicate);
-            foreach (Expression<Func<T, object>> i in includes)
-            {
-                query = query.Include(i);
-            }
-            return query;
-        }
 
-        //public List<T> BuscarListaPor(Expression<Func<T, bool>> query)
-        //{
-        //    return _context.Set<T>().Where(query).ToList();
-        //}
     }
 }

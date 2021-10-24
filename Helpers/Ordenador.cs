@@ -25,10 +25,10 @@ namespace ProyRepositorio.Helpers
                 if (string.IsNullOrEmpty(par))
                     continue;
                 var propQuery=par.Split(" ")[0];
-                var objprop= infopropiedades.FirstOrDefault(x=>x.Name.Equals(propQuery));
+                var objprop= infopropiedades.FirstOrDefault(x=>x.Name.ToLower().Equals(propQuery.ToLower()));
                 if (objprop == null)
                     continue;
-                var ordenAscDes = par.EndsWith(" desc") ? "descending" : "ascending";
+                var ordenAscDes = par.ToLower().EndsWith(" desc") ? "descending" : "ascending";
                 BuilderOrden.Append($"{objprop.Name} {ordenAscDes} ,");
             }
 

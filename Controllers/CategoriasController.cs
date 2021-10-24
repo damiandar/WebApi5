@@ -20,8 +20,8 @@ namespace ProyRepositorio.Controllers
         [HttpGet]
         [Route("{idcategoria}/productos")]
         public ActionResult<List<Categoria>> MostrarProductos(int idcategoria){
-            //var resultado = _context.Filtrar(x => x.Id == idcategoria, x => x.Productos, x => x.Vendedor);
-            return _context.Filtrar(x => x.Id == idcategoria).ToList();
+            //var resultado = _context.BuscarPor(x => x.Id == idcategoria, x => x.Productos, x => x.Vendedor);
+            return _context.BuscarPor(x => x.Id == idcategoria).ToList();
         }
 
     }
