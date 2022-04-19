@@ -77,7 +77,7 @@ namespace ProyRepositorio
                 //});
                 });
 
-                services.AddScoped<ProductoRepositorio<ComercioDbContext>, ProductoRepositorio<ComercioDbContext>>();
+            services.AddScoped<ProductoRepositorio<ComercioDbContext>, ProductoRepositorio<ComercioDbContext>>();
             services.AddScoped<CategoriaRepositorio<ComercioDbContext>, CategoriaRepositorio<ComercioDbContext>>();
     
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -101,6 +101,11 @@ namespace ProyRepositorio
                 //    var actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
                 //    return new UrlHelper(actionContext);
                 //});
+                services.AddApiVersioning(o => {
+		            o.ReportApiVersions = true;
+		            o.AssumeDefaultVersionWhenUnspecified = true;
+                    o.DefaultApiVersion = new ApiVersion(3, 0);
+	            });
 
         }
 
