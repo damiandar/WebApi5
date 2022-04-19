@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace ProyRepositorio.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/{version:apiVersion}")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -25,7 +25,7 @@ namespace ProyRepositorio.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();
