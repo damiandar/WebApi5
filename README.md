@@ -42,5 +42,25 @@ Creo el middleware y agrego en startup
         app.UseMiddleware< WebApi5.Middlewares.ExcepcionesMiddleware>();
 ```
 
+## Agregar token en JWT, agrega el botón authorize arriba
 
-                
+```
+services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", 
+        new OpenApiInfo { Title = "ProyRepositorio", Version = "v1" }
+    );
+    c.AddSecurityDefinition("Bearer",new OpenApiSecurityScheme{
+                    In=ParameterLocation.Header,
+                    Description="Por favor ingrese el JWT",
+                    Name="Authorization",
+                    Type=SecuritySchemeType.ApiKey
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement{
+        {
+         new OpenApiSecurityScheme{Reference=new OpenApiReference{Type=ReferenceType.SecurityScheme, Id="Bearer"}},Array.Empty<string>()
+        }
+    }); 
+});
+
+```

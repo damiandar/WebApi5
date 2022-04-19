@@ -38,6 +38,17 @@ namespace ProyRepositorio
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProyRepositorio", Version = "v1" });
+                c.AddSecurityDefinition("Bearer",new OpenApiSecurityScheme{
+                    In=ParameterLocation.Header,
+                    Description="Por favor ingrese el JWT",
+                    Name="Authorization",
+                    Type=SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement{
+                        {
+                            new OpenApiSecurityScheme{Reference=new OpenApiReference{Type=ReferenceType.SecurityScheme, Id="Bearer"}},Array.Empty<string>()
+                        }
+                }); 
             });
 
             services.AddDbContext<ComercioDbContext>( 
