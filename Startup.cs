@@ -101,6 +101,9 @@ namespace ProyRepositorio
                 //    var actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
                 //    return new UrlHelper(actionContext);
                 //});
+                services.AddHttpContextAccessor();
+                services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+                
                 services.AddApiVersioning(o => {
 		            o.ReportApiVersions = true;
 		            o.AssumeDefaultVersionWhenUnspecified = true;
@@ -124,8 +127,9 @@ namespace ProyRepositorio
                     .AllowAnyHeader());
 
             }
+ 
+            app.UseMiddleware< WebApi5.Middlewares.ExcepcionesMiddleware>();
 
-           
             app.UseRouting();
             //app.UseCors();
             app.UseAuthentication(); 

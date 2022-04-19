@@ -28,3 +28,19 @@ Tambien podemos probar poniendo el decorador
 [ApiVersion("1.0")]
 [ApiVersion("2.0")]
 ```
+
+## Middleware para manejar exceptions de toda la app
+
+Creo el middleware y agrego en startup 
+
+```
+        services.AddHttpContextAccessor();
+        services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+```
+
+```
+        app.UseMiddleware< WebApi5.Middlewares.ExcepcionesMiddleware>();
+```
+
+
+                
