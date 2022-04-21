@@ -64,3 +64,7 @@ services.AddSwaggerGen(c =>
 });
 
 ```
+
+## Problem Details 
+
+https://code-maze.com/using-the-problemdetails-class-in-asp-net-core-web-api/
