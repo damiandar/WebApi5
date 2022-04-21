@@ -68,3 +68,16 @@ services.AddSwaggerGen(c =>
 ## Problem Details 
 
 https://code-maze.com/using-the-problemdetails-class-in-asp-net-core-web-api/
+
+# Healthy
+
+```
+dotnet add package AspNetCore.HealthChecks.SqlServer -v 5.0.2
+dotnet add package AspNetCore.HealthChecks.UI    -v 5.0.0
+dotnet add package AspNetCore.HealthChecks.UI.Client  -v 5.0.0
+
+services.AddHealthChecks();
+```
+https://blog.zhaytam.com/2020/04/30/health-checks-aspnetcore/
+
+http://localhost:5000/healthchecks-ui

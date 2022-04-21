@@ -18,6 +18,9 @@ using ProyRepositorio.Repositorios;
 using System.Text;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using HealthChecks.UI.Client;
 
 namespace ProyRepositorio
 {
@@ -121,6 +124,14 @@ namespace ProyRepositorio
                     o.DefaultApiVersion = new ApiVersion(3, 0);
 	            });
 
+                services.AddHealthChecks()
+                    .AddSqlServer(Configuration["ComercioConnectionString"]);
+
+                services.AddHealthChecksUI(s =>
+                {
+                    /*s.AddHealthCheckEndpoint("endpoint1", "http://localhost:5000/productos");*/
+                }).AddInMemoryStorage();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -149,7 +160,22 @@ namespace ProyRepositorio
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                //endpoints.MapHealthChecks("/health");
+                endpoints.MapHealthChecks("/health", new HealthCheckOptions()
+                {
+                    Predicate = _ => true,
+                    ResponseWriter =  UIResponseWriter.WriteHealthCheckUIResponse
+                });
+                
+                //.AddSqlServer(Configuration["ConnectionStrings:dbConnectionString"]);
             });
+
+            app.UseHealthChecksUI(options =>
+                {
+                options.UIPath = "/healthchecks-ui";
+                options.ApiPath = "/health-ui-api";
+                });
+            
         }
     }
 }
