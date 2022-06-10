@@ -2,6 +2,21 @@
 
 Repositorio
 
+## Json Properties
+```html
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
+public class Videogame
+{
+    [JsonProperty("name")]
+    public string Name { get; set; }
+
+    [JsonProperty("release_date")]
+    public DateTime ReleaseDate { get; set; }
+}
+```
+
 ## Versionado
 
 ```
